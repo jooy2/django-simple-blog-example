@@ -21,7 +21,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-        <a class="navbar-brand" href="#">Blog</a>
+        <a class="navbar-brand" href="{% url 'main' %}">Blog</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -34,7 +34,7 @@
                     <a class="nav-link" href="{% url 'post_list' %}">Posts</a>
                 </li>
                 <li class="nav-item {% if request.path == '/about' %}active{% endif %}">
-                    <a class="nav-link" href="">About</a>
+                    <a class="nav-link" href="{% url 'about' %}">About</a>
                 </li>
             </ul>
         </div>

@@ -5,8 +5,30 @@
 {% endblock head %}
 
 {% block content %}
-    <h1 class="display-3">Recent post</h1>
-    <div>
-        {{ posts }}
+    <h1 class="display-4">Recent post</h1>
+    <div class="border p-2">
+        <span id="btn-add" class="btn btn-primary">Add new post</span>
+    </div>
+
+    <div class="row no-gutters">
+        {% for post in posts %}
+            <div class="col-sm-6">
+                <div class="card py-2">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <p class="card-text">{{ post.text|truncatechars:50 }}</p>
+                        <a href="{% url 'post_detail' pk=post.id %}" class="btn btn-secondary btn-sm">More...</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock content %}
+
+{% block script %}
+    <script type="text/javascript">
+        $('#btn-add').click(function () {
+           location.href = "{% url 'post_add' %}";
+        });
+    </script>
+{% endblock script %}
