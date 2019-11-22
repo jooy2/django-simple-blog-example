@@ -17,6 +17,7 @@
                 <div class="card py-2">
                     <div class="card-body">
                         <h3 class="card-title"><a href="{% url 'post_detail' pk=post.id %}">{{ post.title }}</a></h3>
+                        <p class="card-text card-date">{{ post.created_date }}</p>
                         <p class="card-text">{{ post.text|striptags|truncatechars:200 }}</p>
                         <a href="{% url 'post_detail' pk=post.id %}" class="btn btn-secondary btn-sm">More...</a>
                     </div>

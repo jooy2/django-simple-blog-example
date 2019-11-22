@@ -9,8 +9,10 @@
 {% block content %}
     {% if form.errors %}
         <div class="alert alert-danger" role="alert">
-        로그인에 문제가 발생했습니다. 다시 시도해주세요.
+        로그인에 문제가 발생했습니다.
         </div>
+    {% endif %}
+    {% if user.is_authenticated %}
     {% endif %}
     <form method="post">
         {% csrf_token %}

@@ -39,6 +39,11 @@ body {
     text-decoration: none;
 }
 
+.card .card-date {
+    color: #8c8c8c;
+    font-size: 0.8em;
+}
+
 .blog-button {
     cursor: pointer;
     color: #6f6f6f;
@@ -55,6 +60,70 @@ body {
 
 .post-content {
     word-wrap: break-word;
+}
+
+.comment-body {
+    background: #fbfbfb;
+    box-shadow: 2px 2px 7px #cecece;
+    padding: 20px 10px;
+}
+
+.comment-body h1, .comment-body h2, .comment-body h3, .comment-body h4,
+.comment-body h5, .comment-body h6 {
+    color: #969696;
+    margin: 0;
+    padding: 0;
+}
+
+.comment {
+    margin: 10px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.comment.row {
+    align-items: center;
+}
+
+.comment-author {
+    font-weight: 600;
+    font-size: 1.2em;
+}
+
+.comment-text {
+    font-size: 0.9em;
+    vertical-align: middle;
+}
+
+.comment-like {
+    color: #b5b5b5;
+    cursor: pointer;
+}
+
+.comment-like.active {
+    color: #ff7676;
+    cursor: pointer;
+}
+
+.comment-date {
+    text-align: right;
+    color: #b9bbbe;
+    font-size: 0.8em;
+}
+
+.comment:first-child {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.comment:last-child {
+    margin-top: 10px;
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.comment-input {
+    margin: 15px 0;
 }
 
 .footer {

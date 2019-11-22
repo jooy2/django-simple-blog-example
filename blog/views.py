@@ -1,19 +1,14 @@
-from django.shortcuts import render
 from django.utils import timezone
 from blog.models import Post
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 
 
 def main(request):
     return render(request, 'main.html', {})
-
-
-def login(request):
-    return render(request, 'registration/login.html', {})
 
 
 def about(request):
@@ -28,8 +23,19 @@ def post_list(request):
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
+    form = CommentForm()
 
-    return render(request, 'post_detail.html', {'post': post})
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+            return redirect('post_detail', pk=post.pk)
+        else:
+            form = CommentForm()
+
+    return render(request, 'post_detail.html', {'post': post, 'form': form})
 
 
 @login_required
@@ -75,3 +81,4 @@ def post_delete(request, pk):
     post.delete()
 
     return redirect('post_list')
+

@@ -24,5 +24,6 @@ urlpatterns = [
     path('accounts/login/', auth_views.LoginView.as_view(
         authentication_form=LoginForm
     )),
+    path('accounts/logout/', auth_views.LogoutView.as_view()),
     path('', include('blog.urls')),
 ]

@@ -22,6 +22,16 @@ class PostForm(forms.ModelForm):
         super(PostForm, self).__init__(*args, **kwargs)
 
 
+class CommentForm(forms.ModelForm):
+    author = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control form-control-sm w-25'}))
+    text = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
+                                                         'placeholder': '여기에 댓글을 입력해주세요.'}))
+
+    class Meta:
+        model = Comment
+        fields = ('author', 'text',)
+
+
 class LoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)

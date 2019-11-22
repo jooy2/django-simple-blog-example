@@ -17,8 +17,39 @@
         <button id="btn-list" class="btn btn-secondary">목록</button>
     </div>
 
-    <div class="comment-area">
+    <div class="separate-line">
+        <hr/>
+    </div>
 
+    <div class="comment-area">
+        <div class="comment-header">
+            <h3>{{ post.comments.count }}개의 댓글</h3>
+        </div>
+        <div class="comment-input">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.author }}
+                {{ form.text }}
+                <button class="btn btn-sm btn-secondary" type="submit">작성하기</button>
+            </form>
+        </div>
+        <div class="comment-body">
+            {% for comment in post.comments.all %}
+                <div class="comment row">
+                    <div class="col-3 comment-author">{{ comment.author }}</div>
+                    <div class="col-9 comment-text">{{ comment.text }}</div>
+                    <div class="col-6 comment-like">
+                        <i class="fa fa-thumbs-up"></i>
+                        {{ comment.like }}
+                    </div>
+                    <div class="col-6 comment-date">{{ comment.created_date }}</div>
+                </div>
+            {% empty %}
+                <div class="comment">
+                    <h6>이 포스트에 아직 댓글이 존재하지 않습니다.</h6>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock content %}
 
@@ -35,6 +66,10 @@
         $("#btn-delete").click(function () {
             if (confirm("정말로 게시글을 삭제하시겠습니까?"))
                 location.href = "{% url 'post_delete' pk=post.id %}";
+        });
+
+        $(".comment-like").click(function () {
+
         });
     </script>
 {% endblock script %}
