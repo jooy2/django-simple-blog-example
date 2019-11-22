@@ -38,10 +38,10 @@ def post_add(request):
     else:
         form = PostForm()
 
-    return render(request, 'post_add.html', {'form': form})
+    return render(request, 'post_edit.html', {'form': form})
 
 
-def post_modify(request, pk):
+def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
 
     if request.method == "POST":
@@ -56,10 +56,11 @@ def post_modify(request, pk):
     else:
         form = PostForm(instance=post)
 
-    return render(request, 'post_modify.html', {'form': form})
+    return render(request, 'post_edit.html', {'form': form})
 
 
 def post_delete(request, pk):
+    # post = get_object_or_404(Post, pk=pk)
     post = Post.objects.get(id=pk)
     post.delete()
     return redirect('post_list')

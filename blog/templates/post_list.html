@@ -4,19 +4,20 @@
     <title>Recent post - Jy's Blog</title>
 {% endblock head %}
 
+{% block title %}최근 포스트{% endblock title %}
+
 {% block content %}
-    <h1 class="display-4">Recent post</h1>
-    <div class="border p-2">
-        <span id="btn-add" class="btn btn-primary">Add new post</span>
+    <div id="btn-add" class="add-new-post">
+        <i class="fa fa-pencil-alt mr-2"></i>글쓰기
     </div>
 
     <div class="row no-gutters">
         {% for post in posts %}
-            <div class="col-sm-6">
+            <div class="col-12">
                 <div class="card py-2">
                     <div class="card-body">
-                        <h5 class="card-title">{{ post.title }}</h5>
-                        <p class="card-text">{{ post.text|truncatechars:50 }}</p>
+                        <h3 class="card-title"><a href="{% url 'post_detail' pk=post.id %}">{{ post.title }}</a></h3>
+                        <p class="card-text">{{ post.text|striptags|truncatechars:200 }}</p>
                         <a href="{% url 'post_detail' pk=post.id %}" class="btn btn-secondary btn-sm">More...</a>
                     </div>
                 </div>
