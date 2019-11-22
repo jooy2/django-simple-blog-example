@@ -39,13 +39,14 @@ body {
     text-decoration: none;
 }
 
-.add-new-post {
+.blog-button {
     cursor: pointer;
     color: #6f6f6f;
     padding: 15px 5px;
     text-align: center;
     background: #f5f5f5;
-    box-shadow: 2px 2px 10px #e0e0e0;
+    box-shadow: 2px 2px 4px #dedede;
+    border: 1px solid #eaeaea;
 }
 
 .post-box {
@@ -53,8 +54,7 @@ body {
 }
 
 .post-content {
-    font-size: 1.25em;
-    line-height: 1.6em;
+    word-wrap: break-word;
 }
 
 .footer {
@@ -67,5 +67,5 @@ body {
     left: 0;
     right: 0;
     padding: 80px 30px;
-    margin: 0 auto;
+    margin-top: 90px;
 }

@@ -15,8 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url
+from django.contrib.auth import views as auth_views
+from blog.forms import LoginForm
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/login/', auth_views.LoginView.as_view(
+        authentication_form=LoginForm
+    )),
     path('', include('blog.urls')),
 ]

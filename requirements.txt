@@ -1,0 +1,4 @@
+Django==2.1.14
+django-jquery-js==3.1.1
+django-summernote==0.8.11.4
+pytz==2019.3
