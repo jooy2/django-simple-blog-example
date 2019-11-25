@@ -14,6 +14,10 @@ def main(request):
     return render(request, 'main.html', {})
 
 
+def register(request):
+    return render(request, 'registration/register.html', {})
+
+
 def about(request):
     return render(request, 'about.html', {})
 
@@ -39,6 +43,9 @@ def post_detail(request, pk):
         else:
             form = CommentForm()
 
+    user_id = request.user
+    if not user_id.is_anonymous:
+        form.initial = {'author': user_id}
     return render(request, 'post_detail.html', {'post': post, 'form': form})
 
 
@@ -63,6 +70,10 @@ def post_add(request):
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
 
+    if request.user != post.author:
+        form = CommentForm()
+        return render(request, 'post_detail.html', {'post': post, 'form': form})
+
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
 
@@ -82,6 +93,7 @@ def post_edit(request, pk):
 def post_delete(request, pk):
     # post = get_object_or_404(Post, pk=pk)
     post = Post.objects.get(id=pk)
+    post.author = request.user
     post.delete()
 
     return redirect('post_list')
@@ -90,18 +102,19 @@ def post_delete(request, pk):
 def comment_like(request):
     if request.method == 'POST':
         comment_id = request.POST.get('pk', None)
+        # comment = get_object_or_404(Comment, pk=comment_id
         comment = Comment.objects.get(id=comment_id)
 
         if not request.user.is_authenticated:
             context = {'like_count': comment.like.count(), 'success': 'authRequired'}
         else:
-            user = request.user.id
+            user_id = request.user.id
 
-            if comment.like.filter(id=user).exists():
-                comment.like.remove(user)
+            if comment.like.filter(id=user_id).exists():
+                comment.like.remove(user_id)
                 message = 'rem'
             else:
-                comment.like.add(user)
+                comment.like.add(user_id)
                 message = 'add'
 
             context = {'like_count': comment.like.count(), 'success': message}

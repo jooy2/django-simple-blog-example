@@ -7,17 +7,24 @@ body {
 
 .content-wrapper {
     flex: 1;
+    margin-top: 56px;
 }
 
 .container > div {
     margin: 20px 0;
 }
 
+.ml-auto .dropdown-menu {
+    left: auto !important;
+    right: 0px;
+} /* bootstrap 4 right menu fix */
+
 .blog-title {
     background: #5a6268;
     color: #efefef;
     padding: 90px 20px;
     font-weight: 100;
+    margin: 0;
 }
 
 .card {
@@ -47,11 +54,44 @@ body {
 .blog-button {
     cursor: pointer;
     color: #6f6f6f;
-    padding: 15px 5px;
     text-align: center;
     background: #f5f5f5;
     box-shadow: 2px 2px 4px #dedede;
     border: 1px solid #eaeaea;
+    padding: 10px 15px;
+}
+
+.blog-button-md {
+    padding: 10px 15px;
+}
+
+.blog-button-sm {
+    font-size: 0.85em;
+    padding: 5px 10px;
+}
+
+.blog-button:hover {
+    opacity: 0.75;
+    outline: none;
+}
+
+.color-notice { background: #42846b !important; color: white !important; }
+.color-primary { background: #1674f1 !important; color: white !important; }
+.color-danger { background: #d61f09 !important; color: white !important; }
+
+.blog-button-round {
+    border-radius: 15px;
+}
+
+.post-info {
+    background: #353a3e;
+    color: #e8e8e8;
+    font-size: 0.9em;
+}
+
+.post-info.row {
+    margin: 0;
+    padding: 7px 10px;
 }
 
 .post-box {
@@ -95,6 +135,11 @@ body {
     vertical-align: middle;
 }
 
+.comment-textarea {
+    max-height: 80px;
+    resize: none;
+}
+
 .comment-like {
     color: #b5b5b5;
     cursor: pointer;
@@ -107,7 +152,6 @@ body {
 }
 
 .comment-date {
-    text-align: right;
     color: #b9bbbe;
     font-size: 0.8em;
 }
@@ -125,6 +169,12 @@ body {
 
 .comment-input {
     margin: 15px 0;
+    border: 1px solid #cacaca;
+    padding: 15px 10px;
+}
+
+.comment-input input, .comment-input textarea {
+    border-radius: 0;
 }
 
 .footer {

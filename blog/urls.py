@@ -11,5 +11,6 @@ urlpatterns = [
     path('post/edit/<int:pk>/', views.post_edit, name='post_edit'),
     path('post/delete/<int:pk>/', views.post_delete, name='post_delete'),
     path('post/comment/like/', views.comment_like, name='comment_like'),
+    path('accounts/', include('django.contrib.auth.urls')),
     path(r'^summernote/', include('django_summernote.urls')),
 ]

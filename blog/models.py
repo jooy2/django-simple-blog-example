@@ -24,7 +24,7 @@ class Comment(models.Model):
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     approved_comment = models.BooleanField(default=False)
-    like = models.ManyToManyField('blog.Post', related_name='likes')
+    like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like')
 
     def approve(self):
         self.approve_comment = True

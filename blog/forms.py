@@ -23,9 +23,10 @@ class PostForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
-    author = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control form-control-sm w-25'}))
-    text = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
-                                                         'placeholder': '여기에 댓글을 입력해주세요.'}))
+    author = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control form-control-sm',
+                                                           'placeholder': '작성자'}))
+    text = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control form-control-sm comment-textarea',
+                                                        'placeholder': '여기에 댓글을 입력해주세요.'}))
 
     class Meta:
         model = Comment

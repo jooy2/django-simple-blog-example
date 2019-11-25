@@ -21,21 +21,37 @@
     {% endblock head %}
 </head>
 <body>
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <nav class="navbar fixed-top navbar-expand-md navbar-light bg-light">
         <a class="navbar-brand" href="{% url 'main' %}">Joo</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item {% if request.path == '/' %}active{% endif %}">
-                    <a class="nav-link" href="{% url 'main' %}">홈</a>
+                    <a class="nav-link" href="{% url 'main' %}"><i class="fa fa-home pr-1"></i>홈</a>
                 </li>
                 <li class="nav-item {% if '/post' in request.path %}active{% endif %}">
-                    <a class="nav-link" href="{% url 'post_list' %}">포스트</a>
+                    <a class="nav-link" href="{% url 'post_list' %}"><i class="fa fa-list-alt pr-1"></i>포스트</a>
                 </li>
                 <li class="nav-item {% if request.path == '/about' %}active{% endif %}">
-                    <a class="nav-link" href="{% url 'about' %}">소개</a>
+                    <a class="nav-link" href="{% url 'about' %}"><i class="fa fa-question-circle pr-1"></i>소개</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user-alt mr-2"></i>{% if request.user.is_authenticated %}{{ request.user }} 님{% endif %}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                        <a class="dropdown-item" href="#">내 정보</a>
+                        {% if request.user.is_authenticated %}
+                            <a class="dropdown-item" href="{% url 'logout' %}">로그아웃</a>
+                        {% else %}
+                            <a class="dropdown-item" href="{% url 'login' %}">로그인</a>
+                            <a class="dropdown-item" href="{% url 'register' %}">회원가입</a>
+                        {% endif %}
+                    </div>
                 </li>
             </ul>
         </div>

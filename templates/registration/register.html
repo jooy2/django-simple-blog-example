@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    <title>로그인 - Jy's Blog</title>
+    <title>회원가입 - Jy's Blog</title>
 {% endblock head %}
 
-{% block title %}로그인{% endblock title %}
+{% block title %}회원가입{% endblock title %}
 
 {% block content %}
     {% if form.errors %}
         <div class="alert alert-danger" role="alert">
-        로그인에 문제가 발생했습니다.
+        회원가입에 문제가 발생했습니다.
         </div>
     {% endif %}
     {% if user.is_authenticated %}
@@ -27,8 +27,9 @@
                     {{ form.password }}
                 </div>
                 <div>
-                    <button type="submit" class="blog-button w-100">로그인</button>
-                    <button type="button" class="blog-button color-primary w-100">계정이 없으신가요? 회원가입</button>
+                    <button type="submit" class="blog-button color-primary w-100">계정 만들기</button>
+                    <button type="button" class="blog-button w-100">계정이 있으신가요? 로그인</button>
+
                     <input type="hidden" name="next" value="{{ next }}"/>
                 </div>
             </div>
@@ -38,8 +39,5 @@
 
 {% block script %}
     <script type="text/javascript">
-        $('#btn-register').click(function () {
-           location.href = '{% url 'register' %}';
-        });
     </script>
 {% endblock script %}
