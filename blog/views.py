@@ -1,10 +1,13 @@
+from django.http import HttpResponse
 from django.utils import timezone
-from blog.models import Post
+from blog.models import Post, Comment
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 
 from .forms import PostForm, CommentForm
+
+import json
 
 
 def main(request):
@@ -16,7 +19,7 @@ def about(request):
 
 
 def post_list(request):
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
 
     return render(request, 'post_list.html', {'posts': posts})
 
@@ -25,6 +28,7 @@ def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     form = CommentForm()
 
+    # post comment
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -82,3 +86,24 @@ def post_delete(request, pk):
 
     return redirect('post_list')
 
+
+def comment_like(request):
+    if request.method == 'POST':
+        comment_id = request.POST.get('pk', None)
+        comment = Comment.objects.get(id=comment_id)
+
+        if not request.user.is_authenticated:
+            context = {'like_count': comment.like.count(), 'success': 'authRequired'}
+        else:
+            user = request.user.id
+
+            if comment.like.filter(id=user).exists():
+                comment.like.remove(user)
+                message = 'rem'
+            else:
+                comment.like.add(user)
+                message = 'add'
+
+            context = {'like_count': comment.like.count(), 'success': message}
+
+        return HttpResponse(json.dumps(context), content_type='application/json')

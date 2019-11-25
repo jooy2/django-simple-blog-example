@@ -31,7 +31,7 @@
                 <li class="nav-item {% if request.path == '/' %}active{% endif %}">
                     <a class="nav-link" href="{% url 'main' %}">홈</a>
                 </li>
-                <li class="nav-item {% if request.path == '/post' %}active{% endif %}">
+                <li class="nav-item {% if '/post' in request.path %}active{% endif %}">
                     <a class="nav-link" href="{% url 'post_list' %}">포스트</a>
                 </li>
                 <li class="nav-item {% if request.path == '/about' %}active{% endif %}">
@@ -49,7 +49,7 @@
         {% endblock content %}
     </div>
     <div class="footer">
-        Copyright 2019 @ lee joo yeon all right reserved
+        Copyright 2019 @ Lee All right reserved
     </div>
 </body>
 {% block script %}

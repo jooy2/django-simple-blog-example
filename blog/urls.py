@@ -10,5 +10,6 @@ urlpatterns = [
     path('post/<int:pk>/', views.post_detail, name='post_detail'),
     path('post/edit/<int:pk>/', views.post_edit, name='post_edit'),
     path('post/delete/<int:pk>/', views.post_delete, name='post_delete'),
+    path('post/comment/like/', views.comment_like, name='comment_like'),
     path(r'^summernote/', include('django_summernote.urls')),
 ]

@@ -98,6 +98,7 @@ body {
 .comment-like {
     color: #b5b5b5;
     cursor: pointer;
+    user-select: none;
 }
 
 .comment-like.active {
