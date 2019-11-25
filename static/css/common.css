@@ -151,6 +151,12 @@ body {
     cursor: pointer;
 }
 
+.comment-delete {
+    color: #545454;
+    cursor: pointer;
+    user-select: none;
+}
+
 .comment-date {
     color: #b9bbbe;
     font-size: 0.8em;
