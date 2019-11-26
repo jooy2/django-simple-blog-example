@@ -13,5 +13,5 @@ urlpatterns = [
     path('post/comment/like/', views.comment_like, name='comment_like'),
     path('post/comment/delete/', views.comment_delete, name='comment_delete'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path(r'^summernote/', include('django_summernote.urls')),
+    path('summernote/', include('django_summernote.urls')),
 ]

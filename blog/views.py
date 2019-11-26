@@ -15,7 +15,16 @@ def main(request):
 
 
 def register(request):
-    form = RegisterForm
+    form = RegisterForm()
+
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('main')
+        else:
+            form = RegisterForm(form.errors)
+
     return render(request, 'registration/register.html', {'form': form})
 
 

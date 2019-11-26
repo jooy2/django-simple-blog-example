@@ -41,11 +41,12 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user-alt mr-2"></i>{% if request.user.is_authenticated %}{{ request.user }} 님{% endif %}
+                        <i class="fa fa-user-alt mr-2"></i>
+                        {% if request.user.is_authenticated %}{{ request.user }} 님{% endif %}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                        <a class="dropdown-item" href="#">내 정보</a>
                         {% if request.user.is_authenticated %}
+                            <a class="dropdown-item" href="#">내 정보</a>
                             <a class="dropdown-item" href="{% url 'logout' %}">로그아웃</a>
                         {% else %}
                             <a class="dropdown-item" href="{% url 'login' %}">로그인</a>

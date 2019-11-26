@@ -8,7 +8,7 @@
 
 {% block content %}
     <div class="post-box">
-        <form method="post">
+        <form id="post-form" method="post">
             {% csrf_token %}
             <div class="input-group mb-4">
                 <div class="input-group-prepend">
@@ -19,11 +19,11 @@
             <div class="summernote-area">
                 {{ form.text|safe }}
             </div>
-            <div class="button-area">
-                <button type="submit" class="btn btn-primary">
+            <div class="button-area text-right">
+                <button id="btn-cancel" type="button" class="blog-button blog-button-md mr-2">취소</button>
+                <button id="btn-submit" type="button" class="blog-button blog-button-md color-primary">
                     {% if '/post/edit/' in request.path %}수정하기{% else %}게시하기{% endif %}
                 </button>
-                <button id="btn-cancel" type="button" class="btn btn-secondary">취소</button>
             </div>
         </form>
     </div>
@@ -31,8 +31,21 @@
 
 {% block script %}
     <script type="text/javascript">
-        $("#btn-cancel").click(function () {
-            location.href = "{% url 'post_list' %}";
+        $(document).ready(function () {
+            let checkUnload = true;
+
+            $("#btn-cancel").click(function () {
+                location.href = "{% url 'post_list' %}";
+            });
+
+            $(window).on('beforeunload', function () {
+                if (checkUnload) return "변경사항이 저장되지 않았습니다. 사이트에서 나가시겠습니까?";
+            });
+
+            $("#btn-submit").click(function () {
+                checkUnload = false;
+                $("#post-form").submit();
+            });
         });
     </script>
 {% endblock script %}
