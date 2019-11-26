@@ -1,20 +1,20 @@
-## Simple blog based Django framework
+# Simple blog based Django framework
 Simple blog example based Django framework
 
 Created by leejooy96@gmail.com
 
-### Features
+## Features
 - Simple design & simple layout
 - User authentication with Django basic auth
 - Easy-to-publish posts
 - Comments and Likes
 
-### Requirements
+## Requirements
 - Django 2.1
 - django-jquery-js
 - django-summernote
 
-### Installation
+## Installation
 First, you need to activate python virtual environment (virtualenv) in project root directory with following tutorial: https://docs.python.org/3/tutorial/venv.html
 
 Then install requirements with follow command:

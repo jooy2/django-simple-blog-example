@@ -80,7 +80,7 @@ def post_add(request):
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
 
-    if request.user != post.author:
+    if request.user != post.author and not request.user.is_superuser:
         form = CommentForm()
         return render(request, 'post_detail.html', {'post': post, 'form': form})
 
@@ -101,12 +101,12 @@ def post_edit(request, pk):
 
 @login_required
 def post_delete(request, pk):
-    # post = get_object_or_404(Post, pk=pk)
-    post = Post.objects.get(id=pk)
-    post.author = request.user
-    post.delete()
+    if request.method == 'POST':
+        post = get_object_or_404(Post, id=pk)
+        if post.author == request.user or request.user.is_superuser:
+            post.delete()
 
-    return redirect('post_list')
+        return redirect('post_list')
 
 
 def comment_like(request):

@@ -21,7 +21,7 @@
     </div>
 
     <div class="post-toolbox text-right">
-        {% if request.user == post.author %}
+        {% if request.user == post.author or request.user.is_superuser %}
             <button id="btn-modify" class="blog-button blog-button-round blog-button-sm color-notice">
                 <i class="fa fa-pencil-alt mr-2"></i>수정
             </button>
@@ -59,14 +59,14 @@
         <div class="comment-body">
             {% for comment in post.comments.all %}
                 <div class="comment row">
-                    <div class="col-4 comment-author">{{ comment.author }}</div>
-                    <div class="col-8 comment-text">{{ comment.text }}</div>
-                    <div class="offset-4 col-4 comment-date">{{ comment.created_date }}</div>
-                    <div class="col-4 text-right">
-                        {% if request.user.username == comment.author %}
+                    <div class="col-3 col-lg-2 comment-author">{{ comment.author }}</div>
+                    <div class="col-9 col-lg-10 comment-text">{{ comment.text }}</div>
+                    <div class="offset-3 offset-lg-2 col-5 col-lg-6 comment-date">{{ comment.created_date }}</div>
+                    <div class="col-4 col-lg-4 text-right">
+                        {% if request.user.username == comment.author or request.user.is_superuser %}
                             <span class="comment-delete mr-2" data-id="{{ comment.id }}">
                                 <i class="fa fa-times-circle"></i>
-                                <span class="">삭제</span>
+                                <span>삭제</span>
                             </span>
                         {% endif %}
                         <span class="comment-like" data-id="{{ comment.id }}">
@@ -109,6 +109,9 @@
             });
 
             $(".comment-delete").click(function () {
+                if (!confirm("댓글을 삭제합니다. 계속하시겠습니까?"))
+                    return false;
+
                 let commentArea = $(this).parents()[1];
 
                 $.ajax({
