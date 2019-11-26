@@ -102,8 +102,7 @@ def post_delete(request, pk):
 def comment_like(request):
     if request.method == 'POST':
         comment_id = request.POST.get('pk', None)
-        # comment = get_object_or_404(Comment, pk=comment_id
-        comment = Comment.objects.get(id=comment_id)
+        comment = get_object_or_404(Comment, pk=comment_id)
 
         if not request.user.is_authenticated:
             context = {'like_count': comment.like.count(), 'success': 'authRequired'}
@@ -112,11 +111,30 @@ def comment_like(request):
 
             if comment.like.filter(id=user_id).exists():
                 comment.like.remove(user_id)
-                message = 'rem'
+                message = 'removed'
             else:
                 comment.like.add(user_id)
-                message = 'add'
+                message = 'added'
 
             context = {'like_count': comment.like.count(), 'success': message}
+
+        return HttpResponse(json.dumps(context), content_type='application/json')
+
+
+def comment_delete(request):
+    if request.method == 'POST':
+        comment_id = request.POST.get('pk', None)
+        comment = get_object_or_404(Comment, pk=comment_id)
+
+        if not request.user.is_authenticated:
+            context = {'success': 'authRequired'}
+        else:
+            if comment.author == request.user.username:
+                comment.delete()
+                message = 'removed'
+            else:
+                message = 'notOwned'
+
+            context = {'success': message}
 
         return HttpResponse(json.dumps(context), content_type='application/json')

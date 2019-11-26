@@ -61,10 +61,12 @@
                     <div class="col-8 comment-text">{{ comment.text }}</div>
                     <div class="offset-4 col-4 comment-date">{{ comment.created_date }}</div>
                     <div class="col-4 text-right">
-                        <span class="comment-delete mr-2" data-id="{{ comment.id }}">
-                            <i class="fa fa-times-circle"></i>
-                            <span class="">삭제</span>
-                        </span>
+                        {% if request.user.username == comment.author %}
+                            <span class="comment-delete mr-2" data-id="{{ comment.id }}">
+                                <i class="fa fa-times-circle"></i>
+                                <span class="">삭제</span>
+                            </span>
+                        {% endif %}
                         <span class="comment-like" data-id="{{ comment.id }}">
                             <i class="fa fa-thumbs-up"></i>
                             <span class="like-count">{{ comment.like.count }}</span>
@@ -87,8 +89,8 @@
         $(document).ready(function () {
             const author = $("#id_author");
 
-            //if (author.val())
-             //   author.attr('disabled', true);
+            if (author.val())
+                author.attr('readonly', true);
 
             $("#btn-list").click(function () {
                 location.href = "{% url 'post_list' %}";
@@ -104,28 +106,16 @@
             });
 
             $(".comment-delete").click(function () {
+                let commentArea = $(this).parents()[1];
+
                 $.ajax({
                     type: 'POST',
-                    url: '{% url 'comment_like' %}',
+                    url: '{% url 'comment_delete' %}',
                     data: {'pk': $(this).data('id')},
                     dataType: 'json',
-
                     success: function(response) {
-                        countArea.text(response.like_count);
-
-                        switch (response.success) {
-                            case 'authRequired':
-                                alert('로그인 후 이용해주세요.');
-                                break;
-                            case 'add':
-                                likeButton.addClass('active');
-                                break;
-                            case 'rem':
-                                likeButton.removeClass('active');
-                                break;
-                            default:
-                                break;
-                        }
+                        response.success === 'removed' ?
+                            commentArea.remove() : alert('잘못된 시도입니다.');
                     }
                 });
             });
@@ -139,7 +129,6 @@
                     url: '{% url 'comment_like' %}',
                     data: {'pk': $(this).data('id')},
                     dataType: 'json',
-
                     success: function(response) {
                         countArea.text(response.like_count);
 
@@ -147,10 +136,10 @@
                             case 'authRequired':
                                 alert('로그인 후 이용해주세요.');
                                 break;
-                            case 'add':
+                            case 'added':
                                 likeButton.addClass('active');
                                 break;
-                            case 'rem':
+                            case 'removed':
                                 likeButton.removeClass('active');
                                 break;
                             default:
