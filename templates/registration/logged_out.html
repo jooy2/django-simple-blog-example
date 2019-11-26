@@ -7,26 +7,20 @@
 {% block title %}로그아웃{% endblock title %}
 
 {% block content %}
-    <h1>로그아웃 완료됨</h1>
+    <div class="container text-center">
+        <div class="alert alert-success" role="alert">로그아웃이 완료되었습니다.</div>
+    </div>
     {% if form.errors %}
         <div class="alert alert-danger" role="alert">
         로그아웃에 문제가 발생했습니다.
         </div>
     {% endif %}
-    {% if user.is_authenticated %}
-    {% endif %}
-    <form method="post">
-        {% csrf_token %}
-        <div class="row justify-content-center">
-            <div class="col-11 col-md-8 col-lg-6 my-4">
-                <div>
-                    <button id="btn-login" type="button" class="blog-button w-100">다른 계정으로 로그인</button>
-                    <button id="btn-home" type="button" class="blog-button color-primary w-100">홈 화면으로 돌아가기</button>
-                    <input type="hidden" name="next" value="{{ next }}"/>
-                </div>
-            </div>
+    <div class="row justify-content-center">
+        <div class="col-11 col-md-8 col-lg-6 my-4">
+            <button id="btn-login" type="button" class="blog-button w-100">다른 계정으로 로그인</button>
+            <button id="btn-home" type="button" class="blog-button color-primary w-100">홈 화면으로 돌아가기</button>
         </div>
-    </form>
+    </div>
 {% endblock content %}
 
 {% block script %}

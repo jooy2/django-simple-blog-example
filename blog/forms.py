@@ -2,14 +2,13 @@ from django import forms
 
 from .models import *
 from django_summernote.widgets import SummernoteWidget
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 
 class PostForm(forms.ModelForm):
     title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'autofocus': '',
                                                           'placeholder': '제목을 입력해주세요'}))
     text = forms.CharField(widget=SummernoteWidget())
-    # text = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'style': 'height: 300px'}))
 
     class Meta:
         model = Post
@@ -39,3 +38,12 @@ class LoginForm(AuthenticationForm):
 
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
+
+class RegisterForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super(UserCreationForm, self).__init__(*args, **kwargs)
+
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))

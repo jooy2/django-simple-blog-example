@@ -5,7 +5,7 @@ from blog.models import Post, Comment
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 
-from .forms import PostForm, CommentForm
+from .forms import PostForm, CommentForm, RegisterForm
 
 import json
 
@@ -15,7 +15,8 @@ def main(request):
 
 
 def register(request):
-    return render(request, 'registration/register.html', {})
+    form = RegisterForm
+    return render(request, 'registration/register.html', {'form': form})
 
 
 def about(request):
