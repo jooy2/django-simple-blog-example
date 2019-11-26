@@ -8,8 +8,12 @@
 
 {% block content %}
     <div class="post-info row">
-        <div class="col-6 font-weight-bold"><i class="fa fa-user mr-2"></i>{{ post.author }} 작성</div>
-        <div class="col-6 text-right">{{ post.created_date }}<i class="fa fa-clock ml-2"></i></div>
+        <div class="col-6 font-weight-bold">
+            <i class="fa fa-user mr-2"></i>{{ post.author }} 작성
+        </div>
+        <div class="col-6 text-right">
+            {{ post.created_date }}<i class="fa fa-clock ml-2"></i>
+        </div>
     </div>
 
     <div class="post-box">
@@ -30,9 +34,7 @@
         </button>
     </div>
 
-    <div class="separate-line">
-        <hr/>
-    </div>
+    <div class="separate-line"></div>
 
     <div class="comment-area">
         <div class="comment-header">
@@ -70,10 +72,11 @@
                         <span class="comment-like" data-id="{{ comment.id }}">
                             <i class="fa fa-thumbs-up"></i>
                             <span class="like-count">{{ comment.like.count }}</span>
+                            {% if request.user in comment.like.all %}
+                                <span class="comment-already-liked"></span>
+                            {% endif %}
                         </span>
                     </div>
-                    {% for comm in comment.like.all %}
-                    {% endfor %}
                 </div>
             {% empty %}
                 <div class="comment">
@@ -88,9 +91,9 @@
     <script type="text/javascript">
         $(document).ready(function () {
             const author = $("#id_author");
+            if (author.val()) author.attr('readonly', true);
 
-            if (author.val())
-                author.attr('readonly', true);
+            $(".comment-already-liked").parent().addClass("active");
 
             $("#btn-list").click(function () {
                 location.href = "{% url 'post_list' %}";

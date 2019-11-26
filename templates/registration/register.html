@@ -9,10 +9,8 @@
 {% block content %}
     {% if form.errors %}
         <div class="alert alert-danger" role="alert">
-        회원가입에 문제가 발생했습니다. {{ form.errors }}
+            회원가입에 문제가 발생했습니다. (비밀번호 확인란이 일치해야 하며, 유추하기 어려워야 합니다.)
         </div>
-    {% endif %}
-    {% if user.is_authenticated %}
     {% endif %}
     <form method="post">
         {% csrf_token %}

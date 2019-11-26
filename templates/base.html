@@ -42,7 +42,13 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-user-alt mr-2"></i>
-                        {% if request.user.is_authenticated %}{{ request.user }} 님{% endif %}
+                        {% if request.user.is_authenticated %}
+                            {{ request.user }}
+                            {% if request.user.is_superuser %}
+                                (관리자)
+                            {% endif %}
+                            님
+                        {% endif %}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu">
                         {% if request.user.is_authenticated %}

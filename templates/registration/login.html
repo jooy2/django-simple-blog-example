@@ -9,7 +9,7 @@
 {% block content %}
     {% if form.errors %}
         <div class="alert alert-danger" role="alert">
-        로그인에 문제가 발생했습니다.
+        로그인에 문제가 발생했습니다. 유효한 사용자 계정인지 확인해주세요.
         </div>
     {% endif %}
     {% if user.is_authenticated %}

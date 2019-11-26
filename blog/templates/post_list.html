@@ -16,10 +16,23 @@
             <div class="col-12">
                 <div class="card py-2">
                     <div class="card-body">
-                        <h3 class="card-title"><a href="{% url 'post_detail' pk=post.id %}">{{ post.title }}</a></h3>
-                        <p class="card-text card-date"><i class="fa fa-user pr-2"></i><strong class="pr-2">{{ post.author }}</strong>{{ post.created_date }}</p>
-                        <p class="card-text">{{ post.text|striptags|truncatechars:200 }}</p>
-                        <a href="{% url 'post_detail' pk=post.id %}" class="btn btn-secondary btn-sm"><i class="fa fa-eye pr-2"></i> More...</a>
+                        <h2 class="card-title"><a href="{% url 'post_detail' pk=post.id %}">{{ post.title }}</a></h2>
+                        <p class="card-text card-date">
+                            <i class="fa fa-user pr-1"></i>
+                            <strong class="pr-2">{{ post.author }}</strong>
+                            {{ post.created_date }}
+                        </p>
+                        {% if post.comments.count != 0 %}
+                        <p class="card-text card-comment">
+                            <i class="fa fa-comment pr-1"></i>{{ post.comments.count }} 개의 댓글
+                        </p>
+                        {% endif %}
+                        <p class="card-text card-content">
+                            {{ post.text|striptags|truncatechars:200 }}
+                        </p>
+                        <a href="{% url 'post_detail' pk=post.id %}" class="btn btn-secondary btn-sm">
+                            <i class="fa fa-eye pr-1"></i> More...
+                        </a>
                     </div>
                 </div>
             </div>
