@@ -16,8 +16,24 @@ body {
 
 .ml-auto .dropdown-menu {
     left: auto !important;
-    right: 0px;
+    right: 0;
 } /* bootstrap 4 right menu fix */
+
+.pagination > li > a,
+.pagination > li > span {
+    border: 1px solid #bfbfbf;
+}
+
+.page-item.active .page-link {
+    background: #272727 !important;
+    border-color: #bfbfbf;
+    color: #f6f6f6;
+}
+
+.page-link, .page-link a {
+    outline: none;
+    color: #696969;
+}
 
 .separate-line {
     border-bottom: 1px solid #e8e8e8;
@@ -111,6 +127,7 @@ body {
 
 .post-box {
     padding: 5px 15px;
+    min-height: 300px;
 }
 
 .post-content {

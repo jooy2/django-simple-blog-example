@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.utils import timezone
 from blog.models import Post, Comment
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 
@@ -33,9 +34,20 @@ def about(request):
 
 
 def post_list(request):
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+    posts_list = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
 
-    return render(request, 'post_list.html', {'posts': posts})
+    paginator = Paginator(posts_list, 10)
+
+    page = request.GET.get('page')
+
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
+    return render(request, 'post_list.html', {'posts': posts_list})
 
 
 def post_detail(request, pk):

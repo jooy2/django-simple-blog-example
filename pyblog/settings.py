@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'jquery',
     'django_summernote',
     'blog',
+    'el_pagination',
 ]
 
 MIDDLEWARE = [
@@ -129,6 +130,9 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = None
+
+AUTH_USER_MODEL = 'auth.user'
 
 SUMMERNOTE_CONFIG = {
     'iframe': True,
