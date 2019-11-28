@@ -1,3 +1,5 @@
+import 'https://polyfill.io/v3/polyfill.min.js';
+
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
