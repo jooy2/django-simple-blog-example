@@ -123,11 +123,12 @@ def post_delete(request, pk):
 
 def comment_like(request):
     if request.method == 'POST':
-        comment_id = request.POST.get('pk', None)
+        json_data = json.loads(request.body)
+        comment_id = json_data['pk']
         comment = get_object_or_404(Comment, pk=comment_id)
 
         if not request.user.is_authenticated:
-            context = {'like_count': comment.like.count(), 'success': 'authRequired'}
+            context = {'likes': comment.like.count(), 'success': 'authRequired'}
         else:
             user_id = request.user.id
 
@@ -138,20 +139,21 @@ def comment_like(request):
                 comment.like.add(user_id)
                 message = 'added'
 
-            context = {'like_count': comment.like.count(), 'success': message}
+            context = {'likes': comment.like.count(), 'success': message}
 
         return HttpResponse(json.dumps(context), content_type='application/json')
 
 
 def comment_delete(request):
     if request.method == 'POST':
-        comment_id = request.POST.get('pk', None)
+        json_data = json.loads(request.body)
+        comment_id = json_data['pk']
         comment = get_object_or_404(Comment, pk=comment_id)
 
         if not request.user.is_authenticated:
             context = {'success': 'authRequired'}
         else:
-            if comment.author == request.user.username:
+            if comment.author == request.user.username or request.user.is_superuser:
                 comment.delete()
                 message = 'removed'
             else:

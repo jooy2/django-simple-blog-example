@@ -183,10 +183,6 @@ body {
     cursor: pointer;
 }
 
-.comment-already-liked {
-    display: none;
-}
-
 .comment-delete {
     color: #545454;
     cursor: pointer;

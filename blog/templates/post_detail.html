@@ -69,12 +69,9 @@
                                 <span>삭제</span>
                             </span>
                         {% endif %}
-                        <span class="comment-like" data-id="{{ comment.id }}">
+                        <span class="comment-like {% if request.user in comment.like.all %}active{% endif %}" data-id="{{ comment.id }}">
                             <i class="fa fa-thumbs-up"></i>
                             <span class="like-count">{{ comment.like.count }}</span>
-                            {% if request.user in comment.like.all %}
-                                <span class="comment-already-liked"></span>
-                            {% endif %}
                         </span>
                     </div>
                 </div>
@@ -89,71 +86,79 @@
 
 {% block script %}
     <script type="text/javascript">
-        $(document).ready(function () {
-            const author = $("#id_author");
-            if (author.val()) author.attr('readonly', true);
+        document.getElementById('btn-list').onclick = () => movePage('{% url 'post_list' %}');
 
-            $(".comment-already-liked").parent().addClass("active");
+        const modifyButton = document.getElementById('btn-modify');
+        const deleteButton = document.getElementById('btn-delete');
+        const author = document.getElementById('id_author');
+        const commentLike = document.querySelectorAll('.comment-like');
+        const commentDelete = document.querySelectorAll('.comment-delete');
+        const xhr = new XMLHttpRequest();
 
-            $("#btn-list").click(function () {
-                location.href = "{% url 'post_list' %}";
-            });
+        if (modifyButton != null)
+            modifyButton.onclick = () => movePage('{% url 'post_edit' pk=post.id %}');
+        if (deleteButton != null)
+            deleteButton.onclick = () => movePage('{% url 'post_delete' pk=post.id %}');
 
-            $("#btn-modify").click(function () {
-                location.href = "{% url 'post_edit' pk=post.id %}";
-            });
+        if (author.value.length !== 0)
+            author.setAttribute('readonly', 'true');
 
-            $("#btn-delete").click(function () {
-                if (confirm("정말로 게시글을 삭제하시겠습니까?"))
-                    location.href = "{% url 'post_delete' pk=post.id %}";
-            });
+        /* comment like request */
+        if (commentLike != null) {
+            Array.from(commentLike).forEach(el => {
+                el.onclick = () => {
+                    // process received request
+                    xhr.onload = () => {
+                        if (xhr.status === 200 || xhr.status === 201) {
+                            const result = stringToJson(xhr.responseText);
+                            el.querySelector('.like-count').innerHTML = result.likes;
 
-            $(".comment-delete").click(function () {
-                if (!confirm("댓글을 삭제합니다. 계속하시겠습니까?"))
-                    return false;
-
-                let commentArea = $(this).parents()[1];
-
-                $.ajax({
-                    type: 'POST',
-                    url: '{% url 'comment_delete' %}',
-                    data: {'pk': $(this).data('id')},
-                    dataType: 'json',
-                    success: function(response) {
-                        response.success === 'removed' ?
-                            commentArea.remove() : alert('잘못된 시도입니다.');
-                    }
-                });
-            });
-
-            $(".comment-like").click(function () {
-                const countArea = $(this).children('.like-count');
-                const likeButton = $(this);
-
-                $.ajax({
-                    type: 'POST',
-                    url: '{% url 'comment_like' %}',
-                    data: {'pk': $(this).data('id')},
-                    dataType: 'json',
-                    success: function(response) {
-                        countArea.text(response.like_count);
-
-                        switch (response.success) {
-                            case 'authRequired':
-                                alert('로그인 후 이용해주세요.');
-                                break;
-                            case 'added':
-                                likeButton.addClass('active');
-                                break;
-                            case 'removed':
-                                likeButton.removeClass('active');
-                                break;
-                            default:
-                                break;
+                            switch (result.success) {
+                                case 'authRequired':
+                                    alert('로그인 후 이용해주세요.');
+                                    break;
+                                case 'added':
+                                    el.classList.add('active');
+                                    break;
+                                case 'removed':
+                                    el.classList.remove('active');
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
-                    }
-                });
+                    };
+                    // send request
+                    xhr.open('POST', '{% url 'comment_like' %}');
+                    xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+                    addCsrfToken(xhr);
+                    xhr.send(JSON.stringify({
+                        'pk': el.getAttribute('data-id'),
+                    }));
+                };
             });
-        });
+        }
+
+        /* comment delete request */
+        if (commentDelete != null) {
+            Array.from(commentDelete).forEach(el => {
+                el.onclick = () => {
+                    // process received request
+                    xhr.onload = () => {
+                        if (xhr.status === 200 || xhr.status === 201) {
+                            stringToJson(xhr.responseText).success === 'removed' ?
+                                el.parentNode.parentNode.remove() : alert('문제가 발생하였습니다.');
+                        }
+                    };
+                    // send request
+                    xhr.open('POST', '{% url 'comment_delete' %}');
+                    xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+                    addCsrfToken(xhr);
+                    xhr.send(JSON.stringify({
+                        'pk': el.getAttribute('data-id'),
+                    }));
+                };
+            });
+        }
     </script>
 {% endblock script %}

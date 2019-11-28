@@ -72,8 +72,6 @@
 
 {% block script %}
     <script type="text/javascript">
-        $('#btn-add').click(function () {
-           location.href = "{% url 'post_add' %}";
-        });
+        document.getElementById('btn-add').onclick = () => movePage('{% url 'post_add' %}');
     </script>
 {% endblock script %}

@@ -43,8 +43,6 @@
 
 {% block script %}
     <script type="text/javascript">
-        $('#btn-login').click(function () {
-           location.href = '{% url 'login' %}';
-        });
+        document.getElementById('btn-login').onclick = () => movePage('{% url 'login' %}');
     </script>
 {% endblock script %}

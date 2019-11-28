@@ -9,7 +9,7 @@
 {% block content %}
     {% if form.errors %}
         <div class="alert alert-danger" role="alert">
-        로그인에 문제가 발생했습니다. 유효한 사용자 계정인지 확인해주세요.
+            로그인에 문제가 발생했습니다. 유효한 사용자 계정인지 확인해주세요.
         </div>
     {% endif %}
     {% if user.is_authenticated %}
@@ -38,8 +38,6 @@
 
 {% block script %}
     <script type="text/javascript">
-        $('#btn-register').click(function () {
-           location.href = '{% url 'register' %}';
-        });
+        document.getElementById('btn-register').onclick = () => movePage('{% url 'register' %}');
     </script>
 {% endblock script %}
