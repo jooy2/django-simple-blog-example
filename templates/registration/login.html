@@ -38,6 +38,6 @@
 
 {% block script %}
     <script type="text/javascript">
-        document.getElementById('btn-register').onclick = () => movePage('{% url 'register' %}');
+        document.getElementById('btn-register').onclick = function() { movePage('{% url 'register' %}') };
     </script>
 {% endblock script %}

@@ -31,12 +31,12 @@
 
 {% block script %}
     <script type="text/javascript">
-        window.onbeforeunload = (e) => {
+        window.onbeforeunload = function(e) {
             e.returnValue = "변경사항이 저장되지 않았습니다. 사이트에서 나가시겠습니까?";
         };
 
-        document.getElementById('btn-cancel').onclick = () => movePage('{% url 'post_list' %}');
-        document.getElementById('btn-submit').onclick = () => {
+        document.getElementById('btn-cancel').onclick = function() { movePage('{% url 'post_list' %}') };
+        document.getElementById('btn-submit').onclick = function() {
             window.onbeforeunload = null;
             document.getElementById('post-form').submit();
         };
