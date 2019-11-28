@@ -1,5 +1,3 @@
-import 'https://polyfill.io/v3/polyfill.min.js';
-
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -23,19 +21,14 @@ function csrfSafeMethod(method) {
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
 
-const addCsrfToken = (xhr) => {
+const addCsrfToken = function(xhr) {
     xhr.setRequestHeader("X-CSRFToken", csrfToken);
 };
-/*
-$.ajaxSetup({
-    beforeSend: function(xhr, settings) {
-        if (!csrfSafeMethod(settings.type) && !this.crossDomain)
-            xhr.setRequestHeader("X-CSRFToken", csrfToken);
-    }
-});*/
 
-const movePage = (href) => location.href = href;
+const movePage = function(href) {
+    location.href = href;
+};
 
-const stringToJson = (str) => {
+const stringToJson = function(str) {
     return eval("(" + str + ")");
 };

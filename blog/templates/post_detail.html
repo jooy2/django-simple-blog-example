@@ -96,19 +96,19 @@
         const xhr = new XMLHttpRequest();
 
         if (modifyButton != null)
-            modifyButton.onclick = () => movePage('{% url 'post_edit' pk=post.id %}');
+            modifyButton.onclick = function () { movePage('{% url 'post_edit' pk=post.id %}') };
         if (deleteButton != null)
-            deleteButton.onclick = () => movePage('{% url 'post_delete' pk=post.id %}');
+            deleteButton.onclick = function () { movePage('{% url 'post_delete' pk=post.id %}') };
 
         if (author.value.length !== 0)
             author.setAttribute('readonly', 'true');
 
         /* comment like request */
         if (commentLike != null) {
-            Array.from(commentLike).forEach(el => {
-                el.onclick = () => {
+            Array.from(commentLike).forEach(function(el) {
+                el.onclick = function() {
                     // process received request
-                    xhr.onload = () => {
+                    xhr.onload = function() {
                         if (xhr.status === 200 || xhr.status === 201) {
                             const result = stringToJson(xhr.responseText);
                             el.querySelector('.like-count').innerHTML = result.likes;
@@ -141,10 +141,10 @@
 
         /* comment delete request */
         if (commentDelete != null) {
-            Array.from(commentDelete).forEach(el => {
-                el.onclick = () => {
+            Array.from(commentDelete).forEach(function(el) {
+                el.onclick = function() {
                     // process received request
-                    xhr.onload = () => {
+                    xhr.onload = function() {
                         if (xhr.status === 200 || xhr.status === 201) {
                             stringToJson(xhr.responseText).success === 'removed' ?
                                 el.parentNode.parentNode.remove() : alert('문제가 발생하였습니다.');
