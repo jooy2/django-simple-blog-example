@@ -3,6 +3,12 @@ from django.db import models
 from django.utils import timezone
 
 
+class Config(models.Model):
+    key = models.CharField(max_length=50, blank=False)
+    value = models.CharField(max_length=200, blank=False)
+    modify_date = models.DateTimeField(default=timezone.now)
+
+
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=200, blank=False)

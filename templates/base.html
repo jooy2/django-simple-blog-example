@@ -53,7 +53,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu">
                         {% if request.user.is_authenticated %}
-                            <a class="dropdown-item" href="#">내 정보</a>
+                            <a class="dropdown-item" href="{% url 'profile' %}">내 정보</a>
                             <a class="dropdown-item" href="{% url 'logout' %}">로그아웃</a>
                         {% else %}
                             <a class="dropdown-item" href="{% url 'login' %}">로그인</a>
@@ -61,6 +61,11 @@
                         {% endif %}
                     </div>
                 </li>
+                {% if request.user.is_superuser %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'blog_settings' %}"><i class="fa fa-cog"></i></a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </nav>

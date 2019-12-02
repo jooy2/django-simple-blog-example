@@ -1,12 +1,11 @@
 from django.http import HttpResponse
 from django.utils import timezone
-from blog.models import Post, Comment
+from blog.models import Post, Comment, Config
 
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 
-from .forms import PostForm, CommentForm, RegisterForm
+from .forms import PostForm, CommentForm, RegisterForm, SettingsForm
 
 import json
 
@@ -33,19 +32,43 @@ def about(request):
     return render(request, 'about.html', {})
 
 
+@login_required
+def profile(request):
+    return render(request, 'profile.html', {})
+
+
+@login_required
+def blog_settings(request):
+    if not request.user.is_superuser:
+        return redirect('main')
+
+    name = Config.objects.filter(key='blog_name')
+    description = Config.objects.filter(key='blog_description')
+
+    if not name.exists():
+        name = ''
+    if not description.exists():
+        description = ''
+
+    form = SettingsForm(initial={'name': name[0].value, 'description': description[0].value})
+
+    if request.method == "POST":
+        form = SettingsForm(request.POST)
+        data = request.POST.copy()
+
+        if form.is_valid():
+            name, created = Config.objects.get_or_create(key='blog_name')
+            name.value = data.get('name')
+            name.save()
+            description, created = Config.objects.get_or_create(key='blog_description')
+            description.value = data.get('description')
+            description.save()
+
+    return render(request, 'blog_settings.html', {'form': form})
+
+
 def post_list(request):
     posts_list = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
-
-    paginator = Paginator(posts_list, 10)
-
-    page = request.GET.get('page')
-
-    try:
-        posts = paginator.page(page)
-    except PageNotAnInteger:
-        posts = paginator.page(1)
-    except EmptyPage:
-        posts = paginator.page(paginator.num_pages)
 
     return render(request, 'post_list.html', {'posts': posts_list})
 
