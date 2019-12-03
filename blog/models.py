@@ -4,7 +4,7 @@ from django.utils import timezone
 
 
 class Config(models.Model):
-    key = models.CharField(max_length=50, blank=False)
+    key = models.CharField(max_length=50, blank=False, unique=True)
     value = models.CharField(max_length=200, blank=False)
     modify_date = models.DateTimeField(default=timezone.now)
 

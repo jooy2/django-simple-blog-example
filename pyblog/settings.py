@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'jquery',
+    # 'jquery',
     'django_summernote',
     'blog',
     'el_pagination',
@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'utils.context_processors.blog_meta',
             ],
         },
     },
@@ -137,13 +138,14 @@ LOGOUT_REDIRECT_URL = None
 
 AUTH_USER_MODEL = 'auth.user'
 
+# SUMMERNOTE_THEME = 'lite'
 SUMMERNOTE_CONFIG = {
     'iframe': True,
     'summernote': {
-        # As an example, using Summernote Air-mode
         'airMode': False,
         'width': '100%',
         'height': '480',
+        'lang': 'ko-KR'
     },
     'disable_attachment': True,
 }

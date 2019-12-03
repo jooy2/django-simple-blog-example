@@ -2,7 +2,7 @@
 {% load el_pagination_tags %}
 
 {% block head %}
-    <title>Recent post - Jy's Blog</title>
+    <title>최근 포스트 - {{ blog_name }}</title>
 {% endblock head %}
 
 {% block title %}최근 포스트{% endblock title %}
@@ -38,6 +38,8 @@
                     </div>
                 </div>
             </div>
+        {% empty %}
+            <div class="alert alert-warning w-100" role="alert">작성된 포스트가 없습니다. 새로운 글을 남겨보세요.</div>
         {% endfor %}
     </div>
     {% get_pages %}

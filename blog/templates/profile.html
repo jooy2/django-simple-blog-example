@@ -2,10 +2,10 @@
 {% load el_pagination_tags %}
 
 {% block head %}
-    <title>Profile - Jy's Blog</title>
+    <title>Profile - {{ blog_name }}</title>
 {% endblock head %}
 
-{% block title %}ㅇㅇㅇㅇ{% endblock title %}
+{% block title %}{{ request.user }}님의 프로필{% endblock title %}
 
 {% block content %}
 {% endblock content %}

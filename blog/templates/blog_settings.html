@@ -25,7 +25,8 @@
                 {{ form.description }}
             </div>
             <div class="my-4">
-                <button type="submit" class="blog-button blog-button-md">저장</button>
+                <button type="submit" class="blog-button blog-button-md color-primary mr-2">저장</button>
+                <button id="btn-main" type="button" class="blog-button blog-button-md">취소</button>
             </div>
         </form>
     </div>
@@ -34,6 +35,6 @@
 
 {% block script %}
     <script type="text/javascript">
-
+        document.getElementById('btn-main').onclick = function() { movePage('{% url 'main' %}') };
     </script>
 {% endblock script %}
