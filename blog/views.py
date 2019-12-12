@@ -136,12 +136,11 @@ def post_edit(request, pk):
 
 @login_required
 def post_delete(request, pk):
-    if request.method == 'POST':
-        post = get_object_or_404(Post, id=pk)
-        if post.author == request.user or request.user.is_superuser:
-            post.delete()
+    post = get_object_or_404(Post, id=pk)
+    if post.author == request.user or request.user.is_superuser:
+        post.delete()
 
-        return redirect('post_list')
+    return redirect('post_list')
 
 
 def comment_like(request):
