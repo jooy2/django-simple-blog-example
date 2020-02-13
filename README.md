@@ -1,19 +1,19 @@
 # Django-simple-blog
-Simple blog example using Python3 and Django framework
+Simple blog example using Python3 and Django framework.
 
 Created by leejooy96@gmail.com
 
 ## Features
-- Minimal style & simple layout
-- Responsive web
+- Flat design & Simple layout
+- Responsive web (mobile support)
 - User authentication with Django basic auth
-- Easy-to-publish posts
-- Easy customize blog
-- Comments and Likes
+- Easy to publish posts
+- Easy to customize blog
+- Comment and Like system
 
 ## Requirements
-- Python 3.7
-- Django 2.1
+- Python 3.7.4 or higher
+- Django 3.0 or higher
 - SQLite3
 - Browser support ES6 script
 
@@ -48,12 +48,28 @@ If you want to create superuser, enter the follow command:
 (venv)$ python manage.py createsuperuser
 ```
 
-## Todo
-- [ ] Add license
-- [ ] Complete profile page
-- [ ] Tab based settings page
-- [ ] Logo image
-- [ ] Add post category
+## License
+MIT License
+
+Copyright (c) 2020 Jooyeon Lee
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 ## References
-- Django Girls Tutorial : https://tutorial.djangogirls.org/
+- Django Girls Tutorial : https://tutorial.djangogirls.org
