@@ -148,3 +148,6 @@ SUMMERNOTE_CONFIG = {
     },
     'disable_attachment': True,
 }
+
+X_FRAME_OPTIONS = 'ALLOWALL'
+XS_SHARING_ALLOWED_METHODS = ['POST','GET','OPTIONS', 'PUT', 'DELETE']
