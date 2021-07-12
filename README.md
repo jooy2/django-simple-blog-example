@@ -1,8 +1,6 @@
 # Django-simple-blog
 Simple blog example using Python3 and Django framework.
 
-Created by leejooy96@gmail.com
-
 ## Features
 - Flat design & Simple layout
 - Responsive web (mobile support)
@@ -51,7 +49,7 @@ If you want to create superuser, enter the follow command:
 ## License
 MIT License
 
-Copyright (c) 2020 Jooyeon Lee
+Copyright (c) 2020 jooy2
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
